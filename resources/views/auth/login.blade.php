@@ -75,8 +75,11 @@
                                         class="form-control @error('password') is-invalid @enderror"
                                         required
                                     >
-                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                        Show
+                                    <button class="btn btn-outline-secondary" type="button" id="togglePassword" aria-label="Show password">
+                                        <svg id="togglePasswordIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                        </svg>
                                     </button>
                                     @error('password')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -104,11 +107,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(function () {
+            var eyeIcon = '<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>';
+            var eyeSlashIcon = '<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-1.79.234l1.192 1.192A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755zm-2.943 1.299.734.733a6.4 6.4 0 0 1-1.985.293c-2.12 0-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8a13 13 0 0 1 1.66-2.043C3.879 4.668 5.879 3.5 8 3.5q.088 0 .175.005L1.173 8a13 13 0 0 1 1.66-2.043"/><path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299-1.155-1.155A2.5 2.5 0 0 1 5.5 8a2.5 2.5 0 0 1 .5-1.5l.823.823a1.5 1.5 0 0 0-.323.677l-.5-.5m1.354 1.354.756.756a2.5 2.5 0 0 1-2.5-2.5l.5.5a1.5 1.5 0 0 0 1.244 1.244"/><path d="M0.359 0.646a0.5 0.5 0 0 1 0.707 0l14.288 14.288a0.5 0.5 0 0 1-0.708 0.708L0.359 1.354a0.5 0.5 0 0 1 0-0.708"/>';
+
             $('#togglePassword').on('click', function () {
                 var $password = $('#password');
                 var isPassword = $password.attr('type') === 'password';
                 $password.attr('type', isPassword ? 'text' : 'password');
-                $(this).text(isPassword ? 'Hide' : 'Show');
+                $('#togglePasswordIcon').html(isPassword ? eyeSlashIcon : eyeIcon);
+                $(this).attr('aria-label', isPassword ? 'Hide password' : 'Show password');
             });
 
             $('#login, #password').on('input', function () {
